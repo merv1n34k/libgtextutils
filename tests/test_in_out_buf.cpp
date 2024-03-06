@@ -68,7 +68,7 @@ int fork_pipe_command ( const char* program, const char* output_filename)
 	dup2(fd, STDOUT_FILENO);
 	
 	//Run GZIP
-	execlp(program,program,"-f",NULL);
+	execlp(program,program,"-f",(char *)NULL);
 
 	//Should never get here...
 	err(1,"execlp(%s) failed",program);
