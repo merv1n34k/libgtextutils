@@ -25,7 +25,7 @@
    Splits a string into tokens, based on delimiter
 
    Heavily based on code from:
-   
+
    	C++ Programming HOW-TO
 	Al Dev (Alavoor Vasudevan) alavoor[AT]yahoo.com
 	http://oopweb.com/CPP/Documents/CPPHOWTO/Volume/C++Programming-HOWTO-7.html
@@ -37,7 +37,7 @@
 
       string input = "Hello|Token|World";
       vector<string> tokens;
-      String_Tokenize ( input, back_inserter<string>(tokens), "|" ); 
+      String_Tokenize ( input, back_inserter<string>(tokens), "|" );
 
 */
 template <typename OutputIterator>

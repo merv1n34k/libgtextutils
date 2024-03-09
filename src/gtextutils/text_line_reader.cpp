@@ -28,7 +28,7 @@ TextLineReader::TextLineReader(istream& _input_stream) :
 {
 }
 
-bool TextLineReader::next_line() 
+bool TextLineReader::next_line()
 {
 	if (unget_line_active) {
 		unget_line_active = false;
@@ -40,7 +40,7 @@ bool TextLineReader::next_line()
 	current_line_stream.str( current_line_string ) ;
 	current_line_stream.seekg(0, ios_base::beg );
 	current_line_stream.clear();
-	
+
 	if (input_stream.eof())
 		return false;
 

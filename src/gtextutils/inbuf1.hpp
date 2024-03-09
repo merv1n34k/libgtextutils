@@ -36,7 +36,7 @@
  *  And in the book at Chapter 13, Page 678.
  *
  * Modifications:
- *    1. Larger buffer, with vector<char> 
+ *    1. Larger buffer, with vector<char>
  *    2. Accepts input file descriptor in c'tor
  */
 
@@ -123,12 +123,12 @@ class josuttis_fd_inbuf : public std::streambuf {
 };
 
 /*
- * An output stream that uses the above inbuf 
+ * An output stream that uses the above inbuf
  *
  * Based on code example from page 673 (class fdostream)
  */
 
-class josuttis_fdistream : public std::istream 
+class josuttis_fdistream : public std::istream
 {
 private:
 	josuttis_fd_inbuf buf ;

@@ -25,14 +25,14 @@
 
 #include "pipe_fitter.h"
 
-int pipe_close ( int fd, pid_t pid ) 
+int pipe_close ( int fd, pid_t pid )
 {
 	int i, status ;
 	pid_t p;
 	int exit_code;
 
 	i = close(fd);
-	if ( i == -1 ) 
+	if ( i == -1 )
 		err(1,"close(in pipe_close) failed");
 
 	p = waitpid(pid, &status, 0);
@@ -51,7 +51,7 @@ int pipe_close ( int fd, pid_t pid )
 
 static int pipe_open (
 	const char* executable,
-	const char* filename, 
+	const char* filename,
 	int pipe_input,
 	pid_t* /*OUTPUT*/ child_pid )
 {
@@ -64,17 +64,17 @@ static int pipe_open (
 		err(1,"pipe (for '%s') failed", executable);
 
 	if (filename != NULL) {
-		file_fd = open(filename, 
+		file_fd = open(filename,
 			pipe_input?(O_RDONLY):(O_CREAT|O_WRONLY),
 			0666 ) ;
 
 		//create the file descriptor (input or output, based on function argument)
 		if ( file_fd == -1 )
-			err(1,"failed to %s file '%s'", 
+			err(1,"failed to %s file '%s'",
 				pipe_input?"open":"create",
 				filename ) ;
 	}
-		
+
 	pid = fork();
 
 	if (pid == -1)
@@ -85,21 +85,21 @@ static int pipe_open (
 		/* The parent process */
 		*child_pid = pid;
 		close(file_fd); //the parent process doesn't need the file handle.
-		close(parent_pipe[ pipe_input?1:0 ]); 
-		return (parent_pipe[ pipe_input?0:1 ]); 
+		close(parent_pipe[ pipe_input?1:0 ]);
+		return (parent_pipe[ pipe_input?0:1 ]);
 	}
 
 	/* The child process */
 
 	if (pipe_input) {
 		dup2(parent_pipe[1], STDOUT_FILENO);
-		close(parent_pipe[0]); 
+		close(parent_pipe[0]);
 
 		if (file_fd != -1)
 			dup2(file_fd, STDIN_FILENO);
 	} else {
 		dup2(parent_pipe[0], STDIN_FILENO);
-		close(parent_pipe[1]); 
+		close(parent_pipe[1]);
 
 		if (file_fd!=-1)
 			dup2(file_fd, STDOUT_FILENO);

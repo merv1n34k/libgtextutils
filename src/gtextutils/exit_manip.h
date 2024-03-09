@@ -18,11 +18,11 @@
 #ifndef __EXIT_MANIP__
 #define __EXIT_MANIP__
 
-/* 
+/*
  Easily terminates a program while printing an error message.
-   
+
  Tries to be an STL spirited version of errx(3)
- 
+
  Usage:
 
 	// from where ever in the code you wish to print message and terminate:
@@ -40,7 +40,7 @@ struct exit_process_struct
 	bool show_source;
 	const char* source_file;
 	size_t      source_file_line_number ;
-} ; 
+} ;
 
 #define exit_program_with_source(exitcode) exit_program((exitcode),__FILE__,__LINE__)
 inline exit_process_struct exit_program(int exitcode, const char* filename = NULL, const size_t line = 0 )
@@ -60,13 +60,13 @@ inline exit_process_struct exit_program(int exitcode, const char* filename = NUL
 inline std::ostream& operator<< ( std::ostream& strm, const exit_process_struct& eps )
 {
 	if (eps.show_source)
-		strm << " [ " 
+		strm << " [ "
 		     << eps.source_file
 		     << " : " << eps.source_file_line_number << " ]";
 
 	strm << std::endl;
 	exit(eps.exitcode);
-	
+
 	return strm ;
 }
 

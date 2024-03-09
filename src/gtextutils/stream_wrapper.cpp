@@ -31,7 +31,7 @@ InputStreamWrapper::InputStreamWrapper(const std::string & filename) :
 	if (!use_stdin) {
 		input_file.open(filename.c_str()) ;
 		if (!input_file)
-			err(1,"Failed to open input file (%s)", 
+			err(1,"Failed to open input file (%s)",
 				filename.c_str()) ;
 	}
 };
@@ -43,17 +43,17 @@ OutputStreamWrapper::OutputStreamWrapper(const std::string & filename, bool _com
 		/* compressed output stream:
 		   fork and run GZIP */
 
-	} 
+	}
 	else {
 		/* normal (not-compressed) output file:
 		   just open the file (if needed) */
 		if (!use_stdout) {
 			output_file.open(filename.c_str()) ;
 			if (!output_file)
-				err(1,"Failed to create output file (%s)", 
+				err(1,"Failed to create output file (%s)",
 						filename.c_str()) ;
 		}
 	}
 };
-	
+
 

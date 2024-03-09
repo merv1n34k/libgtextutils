@@ -37,7 +37,7 @@
  *  And in the book at Chapter 13, Page 673.
  *
  * Modifications:
- *    1. Larger buffer, with vector<char> 
+ *    1. Larger buffer, with vector<char>
  *    2. Accepts output file descriptor in c'tor
  */
 #include <cstdio>
@@ -56,8 +56,8 @@ class josuttis_fd_outbuf : public std::streambuf {
     static const int bufferSize = 32768;   // size of data buffer
 
     /*
-     * Note: The vector is used simply because it will manage the memory 
-     * resource for us. The buffer is used as a regular C buffer. 
+     * Note: The vector is used simply because it will manage the memory
+     * resource for us. The buffer is used as a regular C buffer.
      * see "Effective STL" By Scott Meyer, Page 77,
      * Item 17: "Know how to pass vector and string to legacy API"
     */
@@ -133,7 +133,7 @@ class josuttis_fd_outbuf : public std::streambuf {
  * Based on code example from page 673 (class fdostream)
  */
 
-class josuttis_fdostream : public std::ostream 
+class josuttis_fdostream : public std::ostream
 {
 private:
 	josuttis_fd_outbuf buf ;

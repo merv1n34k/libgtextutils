@@ -18,9 +18,9 @@
 #ifndef __LIBGTEXTUTILS_CONTAINER_JOIN_H__
 #define __LIBGTEXTUTILS_CONTAINER_JOIN_H__
 
-/* 
+/*
  * Easily joins a container and outputs it to a stream.
- * 
+ *
  * Tries to emulate Perl's join in an STL way.
 
 Usage:
@@ -54,14 +54,14 @@ Usage example:
 	cout << join(v.begin(), v.end(),"-") << endl;
 	// Will output: 0-1-2-3-4-5-6-7-8-9
 
-	// An std::pair<> based container 
+	// An std::pair<> based container
 	// map/set/multimap/multiset/unorederd_map etc.
 	//   or
 	// vector< pair<A,B> > etc.
 	map<int, string> m;
 	m[42] = "Don't Panic";
 	m[666]= "Beast" ;
-	
+
 	// Print the first values (of the pair) of the entire container:
 	cout << "keys  = " << join_firsts(m) << endl;
 	// Will output: 42 <tab> 666
@@ -93,14 +93,14 @@ Usage example:
 #include <iterator>
 #include <algorithm>
 
-template<typename ITERATOR, typename OP> 
+template<typename ITERATOR, typename OP>
 struct joiner
 {
-	joiner ( ITERATOR _begin, ITERATOR _end, const std::string& _delimiter="\t" ) : 
-		begin(_begin), 
+	joiner ( ITERATOR _begin, ITERATOR _end, const std::string& _delimiter="\t" ) :
+		begin(_begin),
 		end(_end),
 		delimiter(_delimiter)
-	{} 
+	{}
 
 	ITERATOR begin, end;
 	std::string delimiter;
@@ -150,32 +150,32 @@ const SECOND& operator() ( const std::pair<FIRST,SECOND>& pair ) const { return 
 };
 
 template<typename ITERATOR >
-inline 
-joiner< ITERATOR, joiner_noop<typename ITERATOR::value_type> > 
+inline
+joiner< ITERATOR, joiner_noop<typename ITERATOR::value_type> >
 join(ITERATOR begin, ITERATOR end, const std::string& delimiter="\t")
 {
 	return joiner< ITERATOR, joiner_noop<typename ITERATOR::value_type> > (begin, end, delimiter);
 }
 
 template<typename ITERATOR >
-inline 
-joiner< ITERATOR, joiner_select1st<typename ITERATOR::value_type::first_type, typename ITERATOR::value_type::second_type> > 
+inline
+joiner< ITERATOR, joiner_select1st<typename ITERATOR::value_type::first_type, typename ITERATOR::value_type::second_type> >
 join_firsts(ITERATOR begin, ITERATOR end, const std::string& delimiter="\t")
 {
 	return joiner< ITERATOR, joiner_select1st<typename ITERATOR::value_type::first_type, typename ITERATOR::value_type::second_type> > (begin, end, delimiter);
 }
 
 template<typename ITERATOR >
-inline 
-joiner< ITERATOR, joiner_select2nd<typename ITERATOR::value_type::first_type, typename ITERATOR::value_type::second_type> > 
+inline
+joiner< ITERATOR, joiner_select2nd<typename ITERATOR::value_type::first_type, typename ITERATOR::value_type::second_type> >
 join_seconds(ITERATOR begin, ITERATOR end, const std::string& delimiter="\t")
 {
 	return joiner< ITERATOR, joiner_select2nd<typename ITERATOR::value_type::first_type, typename ITERATOR::value_type::second_type> > (begin, end, delimiter);
 }
 
 template<typename CONTAINER>
-inline 
-joiner< typename CONTAINER::const_iterator, joiner_noop<typename CONTAINER::value_type>	> 
+inline
+joiner< typename CONTAINER::const_iterator, joiner_noop<typename CONTAINER::value_type>	>
 join(const CONTAINER& a, const std::string& delimiter="\t")
 {
 	return join(a.begin(), a.end(), delimiter);
@@ -183,16 +183,16 @@ join(const CONTAINER& a, const std::string& delimiter="\t")
 
 
 template<typename CONTAINER>
-inline 
-joiner< typename CONTAINER::const_iterator, joiner_select1st<typename CONTAINER::value_type::first_type, typename CONTAINER::value_type::second_type> > 
+inline
+joiner< typename CONTAINER::const_iterator, joiner_select1st<typename CONTAINER::value_type::first_type, typename CONTAINER::value_type::second_type> >
 join_firsts(const CONTAINER& a, const std::string& delimiter="\t")
 {
 	return join_firsts(a.begin(), a.end(), delimiter);
 }
 
 template<typename CONTAINER>
-inline 
-joiner< typename CONTAINER::const_iterator, joiner_select2nd<typename CONTAINER::value_type::first_type, typename CONTAINER::value_type::second_type> > 
+inline
+joiner< typename CONTAINER::const_iterator, joiner_select2nd<typename CONTAINER::value_type::first_type, typename CONTAINER::value_type::second_type> >
 join_seconds(const CONTAINER& a, const std::string& delimiter="\t")
 {
 	return join_seconds(a.begin(), a.end(), delimiter);

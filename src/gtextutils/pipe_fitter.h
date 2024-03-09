@@ -23,7 +23,7 @@
 #ifdef __cplusplus
 extern "C"
 {
-#endif 
+#endif
 
 int pipe_output_command ( const char* command, const char* output_filename, pid_t* /*OUTPUT*/ child_pid );
 int pipe_input_command ( const char* command, const char* input_filename, pid_t* /*OUTPUT*/ child_pid );
@@ -32,6 +32,6 @@ int pipe_close ( int fd, pid_t pid ) ;
 
 #ifdef __cplusplus
 }
-#endif 
+#endif
 
 #endif

@@ -19,7 +19,7 @@
 #define __NATURAL_SORT_STL_H__
 
 /*
- * natsort.h - 
+ * natsort.h -
  * STL-compatible interface to Martin Pool's Natural-Order sorting routines.
  *
  * see http://sourcefrog.net/projects/natsort/ for more details
@@ -50,16 +50,16 @@ Usage:
 
 	// "regular" sort
 	sort(v.begin(), v.end() );
-	// order will be:  
+	// order will be:
 	//	chr1
 	//	chr10
 	//	chr2
 	//	chr20
 	//	chr5
-	
+
 	// "natural order" sort
 	sort(v.begin(), v.end(), natural_sort_predicate() );
-	// order will be: 
+	// order will be:
 	// 	chr1
 	// 	chr2
 	// 	chr5

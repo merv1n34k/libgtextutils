@@ -45,7 +45,7 @@ public:
 		_actual_columns(actual_columns)
 	{
 		std::ostringstream os;
-		os << "Error: premature end-of-line, expecting at least " 
+		os << "Error: premature end-of-line, expecting at least "
 		  << expected_columns
 		  << " columns, got only "
 		  << actual_columns
@@ -68,7 +68,7 @@ public:
 	{
 		return _what.c_str();
 	}
-	
+
 	virtual ~tuple_parser_premature_end_of_line() throw()
 	{
 	}
@@ -111,7 +111,7 @@ public:
 	{
 		return _what.c_str();
 	}
-	
+
 	virtual ~tuple_parser_parsing_error() throw()
 	{
 	}
@@ -125,7 +125,7 @@ public:
  the constructor will accept list of size_t as arguments.
 
  Usage Example:
- 
+
  	template<typename _Elements...>
 	class MyClass
 	{
@@ -159,8 +159,8 @@ public:
 */
 template<typename _Tp>
 struct __column_index
-{ 
-	typedef size_t type; 
+{
+	typedef size_t type;
 };
 
 
@@ -174,10 +174,10 @@ struct __column_index
 */
 
 template<int _Idx, typename... _Elements>
-     class _Tuple_Parser_impl; 
+     class _Tuple_Parser_impl;
 
 /*
- Zero-element tuple implementation. 
+ Zero-element tuple implementation.
  This is the basis case for the inheritance recursion.
 
  used_column_bitset is used (during runtime) do make
@@ -193,7 +193,7 @@ template<int _Idx, typename... _Elements>
  in their constructor to add a new column number.
 */
 template<int _Idx>
-class _Tuple_Parser_impl<_Idx>  
+class _Tuple_Parser_impl<_Idx>
 {
 private:
 	size_t max_column_number ;
@@ -208,9 +208,9 @@ public:
 #endif
 	}
 
-	void update_max_column_number(size_t num) 
-	{ 
-		max_column_number = std::max(max_column_number,num); 
+	void update_max_column_number(size_t num)
+	{
+		max_column_number = std::max(max_column_number,num);
 	}
 
 	void update_used_column ( size_t column )
@@ -234,12 +234,12 @@ public:
 		used_column_bitset.set(column);
 		update_max_column_number(column) ;
 	}
-	
-	size_t max_column() const { return max_column_number ; } 
+
+	size_t max_column() const { return max_column_number ; }
 #ifdef TUPLE_PARSER_DEBUG
 	void print() const {}
 #endif
-	bool consume_input ( size_t , std::istream& ) { return false; } 
+	bool consume_input ( size_t , std::istream& ) { return false; }
 };
 
 /*
@@ -256,7 +256,7 @@ public:
 
 	Users should use a Tuple_Parser<> instead of _Tuple_Parser_impl<>.
 
-	
+
 	Usage exmaple:
 
 	  //Define a parser that extracts three fields from an input stream:
@@ -275,7 +275,7 @@ public:
 
 	  //Extract the columns from the input stream.
 	  istringstream is ( "DUMMY1 3.14 DUMMY3 HELLO DUMMY5 DUMMY6 DUMMY7 42 DUMMY9" ) ;
-  	  is >> p ;	  
+  	  is >> p ;
 
 	  //Get the extracted values.
 	  int a = get<0>(p);
@@ -297,12 +297,12 @@ struct _Tuple_Parser_impl<_Idx, _Head, _Tail...>
 
 	_Tuple_Parser_impl() : _Inherited(), _M_head_column(_Idx+1),_M_head() { }
 
-	_Tuple_Parser_impl( size_t _head_column, typename __column_index<_Tail>::type... __tail) : 
-		_Inherited(__tail...), _M_head_column(_head_column) 
+	_Tuple_Parser_impl( size_t _head_column, typename __column_index<_Tail>::type... __tail) :
+		_Inherited(__tail...), _M_head_column(_head_column)
 	{
 		update_used_column ( _M_head_column ) ;
 #ifdef TUPLE_PARSER_DEBUG
-		std::cerr << "At Ctor, _Idx = " << _Idx 
+		std::cerr << "At Ctor, _Idx = " << _Idx
 			  << " Max-Column-Number = " << _M_tail().max_column()
 			  << std::endl;
 #endif
@@ -311,13 +311,13 @@ struct _Tuple_Parser_impl<_Idx, _Head, _Tail...>
 #ifdef TUPLE_PARSER_DEBUG
 	void print() const
 	{
-		std::cout << "_Idx=" << _Idx << " " 
+		std::cout << "_Idx=" << _Idx << " "
 			<< "typeid(head)=" << typeid(_M_head).name()
-			<< " column = " << _M_head_column 
+			<< " column = " << _M_head_column
 			<< " value = " << _M_head
 			<< std::endl ;
 
-		_M_tail().print() ;	
+		_M_tail().print() ;
 	}
 #endif
 
@@ -331,7 +331,7 @@ struct _Tuple_Parser_impl<_Idx, _Head, _Tail...>
 				std::string dummy ;
 				strm >> dummy ;
 #ifdef TUPLE_PARSER_DEBUG
-				std::cout << "skipping column " 
+				std::cout << "skipping column "
 					  << current_column
 					  << std::endl;
 #endif
@@ -343,27 +343,27 @@ struct _Tuple_Parser_impl<_Idx, _Head, _Tail...>
 		}
 	}
 
-	bool consume_input ( size_t column_number, std::istream& strm ) 
-	{ 
+	bool consume_input ( size_t column_number, std::istream& strm )
+	{
 		if ( column_number == _M_head_column ) {
 #ifdef TUPLE_PARSER_DEBUG
-			std::cout << "consuming column " 
-				  << column_number 
-				  << ", _Idx = " 
+			std::cout << "consuming column "
+				  << column_number
+				  << ", _Idx = "
 				  << _Idx << std::endl;
 #endif
 			strm >> _M_head;
 
 			if (!strm)
 				throw tuple_parser_parsing_error(column_number);
-			
+
 			return true;
 		}
 		return _M_tail().consume_input ( column_number, strm ) ;
-	} 
+	}
 
 	void update_used_column (size_t num) { _M_tail().update_used_column(num);  }
-	size_t max_column() const { return _M_tail().max_column() ; } 
+	size_t max_column() const { return _M_tail().max_column() ; }
 
 };
 
@@ -378,7 +378,7 @@ struct _Tuple_Parser_impl<_Idx, _Head, _Tail...>
 template <typename... _Elements>
 struct Tuple_Parser : public _Tuple_Parser_impl<0,_Elements...>
 {
-	Tuple_Parser ( typename __column_index<_Elements>::type... _UElements) : 
+	Tuple_Parser ( typename __column_index<_Elements>::type... _UElements) :
 		_Tuple_Parser_impl<0, _Elements...>(_UElements...)
        	{ }
 };
@@ -393,7 +393,7 @@ struct Tuple_Parser : public _Tuple_Parser_impl<0,_Elements...>
 
 	   typedef Tuple_Parser<int, double, std::string, float> MyParser ;
 
-	   // 'MyVariable' will have type std::string, 
+	   // 'MyVariable' will have type std::string,
 	   // which is the third (index=2) element in MyParser )
 	   tuple_parser_element<2, MyParser>::type MyVariable ;
 

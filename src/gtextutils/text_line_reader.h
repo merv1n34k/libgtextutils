@@ -35,18 +35,18 @@ private:
     	TextLineReader& operator=(const TextLineReader&);
 
 public:
-	TextLineReader(std::istream& _input_stream) ; 
+	TextLineReader(std::istream& _input_stream) ;
 
 	size_t line_number() const { return current_line_number ; }
 
 	bool next_line() ;
 
-	void unget_line ( const std::string& line ) 
-	{ 
+	void unget_line ( const std::string& line )
+	{
 		unget_line_active = true ;
 		current_line_string = line ;
 	}
-	void unget_current_line () { unget_line_active = true; } 
+	void unget_current_line () { unget_line_active = true; }
 
 	//explicit conversions
 	const std::string& line_string() const { return current_line_string; }
