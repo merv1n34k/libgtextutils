@@ -1,9 +1,9 @@
 # Copyright (C) 2008-2013 Assaf Gordon <assafgordon@gmail.com>
-#  
+#
 # This file is free software; as a special exception the author gives
-# unlimited permission to copy and/or distribute it, with or without 
+# unlimited permission to copy and/or distribute it, with or without
 # modifications, as long as this notice is preserved.
-# 
+#
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -13,7 +13,7 @@ if TUPLE_PARSER_CHECK
 TUPLE_PROG = test_tuple_parser \
 	     test_tuple_parser_file
 else
-TUPLE_PROG = 
+TUPLE_PROG =
 endif
 
 AM_TESTS_ENVIRONMENT=\

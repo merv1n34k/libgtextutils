@@ -54,3 +54,6 @@ tests/test_text_reader_unget
 # any logs files
 
 /*/*.log
+
+# Ignore build directory
+build/
