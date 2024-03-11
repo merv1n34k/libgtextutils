@@ -58,6 +58,6 @@ endif()
 
 # Install the .pc file to the appropriate directory
 install(
-    FILES ${CMAKE_CURRENT_BINARY_DIR}/libgtextutils.pc
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/gtextutils.pc
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
 )
