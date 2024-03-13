@@ -8,7 +8,6 @@ add_library(${LIBRARY_NAME} SHARED
     # Add here other source files if needed
 )
 
-# Set properties for versioning
 set_target_properties(${LIBRARY_NAME} PROPERTIES
     VERSION ${LIBGTU_VERSION}
     SOVERSION ${LIBGTU_SOVERSION}

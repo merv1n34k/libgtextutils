@@ -12,10 +12,6 @@ configure_file(
     @ONLY
 )
 
-# Versioning for Dynamic Library
-set(LIBGTU_VERSION "0.0.0") # Based on LIBGTU_CURRENT, LIBGTU_REVISION, LIBGTU_AGE
-set(LIBGTU_SOVERSION "0")   # Based on LIBGTU_CURRENT
-
 include_directories(${PROJECT_BINARY_DIR})
 
 
