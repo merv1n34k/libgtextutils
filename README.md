@@ -2,7 +2,7 @@
 
 Gordon's text utils library.
 
-This library is only ever used in fastx_toolkit project, see [this](https://github.com/merv1n34k/fastx_toolkit/tree/homebrew) GitHub repository.
+This library is only ever used in `fastx_toolkit` project, see [this](https://github.com/merv1n34k/fastx_toolkit/tree/homebrew) GitHub repository.
 
 ## Software Requirements
 
@@ -17,7 +17,6 @@ To install the tools one can do the following:
 ```bash
    $ git clone https://github.com/merv1n34k/libgtextutils
    $ cd libgtextutils
-   $ git checkout cmake_version
    $ mkdir build && cd build
    $ cmake ..
    $ make install
